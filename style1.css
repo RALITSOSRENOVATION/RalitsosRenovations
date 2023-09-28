@@ -1,0 +1,17 @@
+*{
+  padding:0;
+  margin:0;
+  font-family:sans-serif;
+}
+
+.container{
+
+          position:relative;
+          background:#aad5f6
+
+}
+
+.slide-1{
+
+     background:url('../img/1.jpg');
+}
