@@ -76,7 +76,9 @@ header nav a.active, header nav a:hover{
   padding-right: 30%;
   box-sizing: : border-box;
   color: #fff;
-  text-shadow: 0 15px 15px #0004;
+  text-shadow: 0 30px 35px hsl(0, 0%, 57%)
+
+;
 
 }
 
