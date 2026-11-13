@@ -1,0 +1,299 @@
+header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    width: 100%;
+    height: 15vh;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: transparent;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+
+    animation-name: header-on-scroll;
+    animation-duration: var(--duration-header-scroll);
+    animation-fill-mode: both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 160px;
+}
+
+@keyframes header-on-scroll {
+    from {
+        height: 15dvh;
+        background-color: transparent;
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+    }
+
+    to {
+        background-color: var(--color-carbon-90);
+        backdrop-filter: blur(var(--blur-header));
+        -webkit-backdrop-filter: blur(var(--blur-header));
+        height: clamp(5.5rem, 8dvh, 7rem);
+    }
+}
+
+#logo {
+    margin-left: var(--layout-edge-fluid);
+}
+
+#logo a {
+    display: block;
+}
+
+#logo img {
+    display: block;
+    object-fit: cover;
+    width: clamp(6.5rem, 8vw, 7.5rem);
+    height: auto;
+    flex-shrink: 0;
+}
+
+#top-nav {
+    margin-right: var(--layout-edge-fluid);
+}
+
+.nav-toggle {
+    display: none;
+
+    color: var(--color-ivory);
+    background-color: transparent;
+    border: solid var(--border-width-thin) var(--border-subtle);
+}
+
+#top-nav ul {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    list-style: none;
+}
+
+#top-nav ul li a {
+    position: relative;
+    min-height: var(--target-min);
+
+    display: flex;
+    align-items: center;
+
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-solid);
+    letter-spacing: 0.01em;
+}
+
+#top-nav ul li a.active::after {
+    position: absolute;
+    content: "";
+
+    height: var(--border-width-thin);
+    width: 100%;
+    left: 0;
+    bottom: 0.25rem;
+
+    background-color: var(--color-red);
+}
+
+/* TABLET */
+
+@media (max-width: 64rem) {
+    #top-nav ul {
+        gap: var(--space-5);
+    }
+}
+/* ---------- */
+
+
+/* MOBILE */
+
+@media (max-width: 48rem) {
+    header {
+        height: auto;
+        min-height: calc(4.75rem + env(safe-area-inset-top));
+        padding:
+            env(safe-area-inset-top)
+            max(var(--page-gutter), env(safe-area-inset-right))
+            0
+            max(var(--page-gutter), env(safe-area-inset-left));
+
+        flex-wrap: wrap;
+
+        background-color: var(--surface-header);
+        backdrop-filter: blur(var(--blur-header));
+        -webkit-backdrop-filter: blur(var(--blur-header));
+
+        animation: none;
+    }
+
+    #logo,
+    #top-nav {
+        margin: 0;
+    }
+
+    #logo img {
+        width: 5.5rem;
+    }
+
+    #top-nav {
+        width: 100%;
+        padding-bottom: var(--space-3);
+    }
+
+    #top-nav ul {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--space-1) var(--space-4);
+    }
+
+    #top-nav ul li a {
+        min-height: var(--target-min);
+
+        display: flex;
+        align-items: center;
+
+        font-size: var(--text-sm);
+    }
+
+    html.nav-enhanced header {
+        height: calc(4.75rem + env(safe-area-inset-top));
+        flex-wrap: nowrap;
+    }
+
+    html.nav-enhanced .nav-toggle {
+        width: var(--target-comfortable);
+        height: var(--target-comfortable);
+        margin-left: auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.35rem;
+
+        cursor: pointer;
+    }
+
+    .nav-toggle span {
+        display: block;
+        width: var(--space-6);
+        height: var(--border-width-thin);
+
+        background-color: currentColor;
+
+        transition:
+            transform var(--duration-fast) var(--ease-standard),
+            opacity var(--duration-fast) var(--ease-standard);
+    }
+
+    html.nav-enhanced #top-nav {
+        position: absolute;
+        inset: 100% 0 auto;
+
+        padding:
+            var(--space-4)
+            max(var(--page-gutter), env(safe-area-inset-right))
+            var(--space-5)
+            max(var(--page-gutter), env(safe-area-inset-left));
+
+        background-color: var(--surface-navigation);
+        border-top: solid var(--border-width-thin) var(--border-subtle);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-0.5rem);
+
+        transition:
+            opacity var(--duration-fast) var(--ease-standard),
+            visibility var(--duration-fast) var(--ease-standard),
+            transform var(--duration-fast) var(--ease-standard);
+    }
+
+    html.nav-enhanced #top-nav ul {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    html.nav-enhanced #top-nav ul li a {
+        justify-content: center;
+    }
+
+    html.nav-enhanced #top-nav ul li a.active::after {
+        width: var(--space-8);
+        left: 50%;
+        bottom: var(--space-1);
+        transform: translateX(-50%);
+    }
+
+    html.nav-enhanced header.is-nav-open #top-nav {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    header.is-nav-open .nav-toggle span:first-child {
+        transform: translateY(0.45rem) rotate(45deg);
+    }
+
+    header.is-nav-open .nav-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    header.is-nav-open .nav-toggle span:last-child {
+        transform: translateY(-0.45rem) rotate(-45deg);
+    }
+}
+/* ---------- */
+
+
+/* TOUCH DEVICES */
+
+@media (pointer: coarse) {
+    #top-nav ul li a {
+        min-height: var(--target-min);
+
+        display: flex;
+        align-items: center;
+    }
+}
+/* ---------- */
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    header {
+        background-color: var(--surface-header);
+        animation: none;
+    }
+
+    #top-nav,
+    html.nav-enhanced #top-nav,
+    .nav-toggle span {
+        transition: none;
+    }
+}
+/* ---------- */
+
+
+/* SHORT LANDSCAPE */
+
+@media (max-height: 32rem) and (orientation: landscape) {
+    header {
+        height: 5rem;
+        min-height: 5rem;
+
+        background-color: var(--surface-header);
+        animation: none;
+    }
+
+    #logo img {
+        width: 4.5rem;
+    }
+}
+/* ---------- */
